@@ -34,7 +34,6 @@ SOFTWARE.
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
-#include <driver/i2c.h>
 
 #include "sdkconfig.h"
 
@@ -58,7 +57,8 @@ static SemaphoreHandle_t* I2C_FN(_mutex) = &I2C_FN(_local_mutex)[0];
 
 static const uint8_t ACK_CHECK_EN = 1;
 
-#if defined (I2C_NUM_0) && defined (CONFIG_I2C_MANAGER_0_ENABLED)
+
+#if defined (CONFIG_I2C_MANAGER_0_ENABLED)
 	#define I2C_ZERO 					I2C_NUM_0
 	#if defined (CONFIG_I2C_MANAGER_0_PULLUPS)
 		#define I2C_MANAGER_0_PULLUPS 	true
@@ -71,7 +71,7 @@ static const uint8_t ACK_CHECK_EN = 1;
 #endif
 
 
-#if defined (I2C_NUM_1) && defined (CONFIG_I2C_MANAGER_1_ENABLED)
+#if defined (CONFIG_I2C_MANAGER_1_ENABLED)
 	#define I2C_ONE 					I2C_NUM_1
 	#if defined (CONFIG_I2C_MANAGER_1_PULLUPS)
 		#define I2C_MANAGER_1_PULLUPS 	true
