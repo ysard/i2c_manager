@@ -6,7 +6,15 @@ if (CONFIG_I2C_MANAGER_I2CDEV)
     list(APPEND INCLUDES "i2cdev")
 endif()
 
+if("${IDF_VERSION_MAJOR}.${IDF_VERSION_MINOR}" VERSION_GREATER_EQUAL "5.0")
+    idf_component_register(
+        SRCS ${SOURCES}
+        INCLUDE_DIRS ${INCLUDES}
+        REQUIRES driver esp_driver_i2c
+    )
+else()
 idf_component_register(
     SRCS ${SOURCES}
     INCLUDE_DIRS ${INCLUDES}
 )
+endif()
