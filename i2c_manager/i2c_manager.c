@@ -168,7 +168,7 @@ esp_err_t I2C_FN(_init)(i2c_port_t port) {
 			ESP_LOGW(TAG, "If it was already open, we'll use it with whatever settings were used "
 			              "to open it. See I2C Manager README for details.");
 		} else {
-			ESP_LOGI(TAG, "Initialised port %d (SDA: %d, SCL: %d, speed: %d Hz.)",
+			ESP_LOGI(TAG, "Initialised port %d (SDA: %d, SCL: %d, speed: %ld Hz.)",
 					 port, conf.sda_io_num, conf.scl_io_num, conf.master.clk_speed);
 		}
 
@@ -222,7 +222,7 @@ esp_err_t I2C_FN(_read)(i2c_port_t port, uint16_t addr, uint32_t reg, uint8_t *b
 	}
 
     if (result != ESP_OK) {
-    	ESP_LOGD(TAG, "Error: %d", result);
+		ESP_LOGE(TAG, "Read error: %d", result);
     }
 
 	ESP_LOG_BUFFER_HEX_LEVEL(TAG, buffer, size, ESP_LOG_VERBOSE);
@@ -271,7 +271,7 @@ esp_err_t I2C_FN(_write)(i2c_port_t port, uint16_t addr, uint32_t reg, const uin
 	}
 
     if (result != ESP_OK) {
-    	ESP_LOGD(TAG, "Error: %d", result);
+		ESP_LOGE(TAG, "Write error: %d", result);
     }
 
 	ESP_LOG_BUFFER_HEX_LEVEL(TAG, buffer, size, ESP_LOG_VERBOSE);
